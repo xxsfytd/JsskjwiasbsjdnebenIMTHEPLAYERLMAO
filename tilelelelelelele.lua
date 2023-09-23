@@ -21,11 +21,11 @@ end
 
 -- Create a TextButton named "Hide n Open"
 local hideNOpenButton = Instance.new("TextButton")
-hideNOpenButton.Text = "Hide n Open"
+hideNOpenButton.Text = "Hide n Open (findplayer)"
 hideNOpenButton.Size = UDim2.new(0.1, 0, 0.1, 0)
 hideNOpenButton.Position = UDim2.new(0.0, 0, 0.9, 0) -- Adjust position here
 hideNOpenButton.Parent = screenGui
-hideNOpenButton.ZIndex = 102
+hideNOpenButton.ZIndex = 200
 
 -- Bind the "Hide n Open" button click event to toggle frame visibility
 hideNOpenButton.MouseButton1Click:Connect(function()
