@@ -1,14 +1,37 @@
 -- Create a new ScreenGui instance
 local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+screenGui.Parent = game:GetService("CoreGui")
 
 -- Set the size to cover the whole screen
-screenGui.ResetOnSpawn = false
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(1, 0, 1, 0)
 frame.BackgroundColor3 = Color3.new(0, 0, 0) -- Background color (you can change this)
 frame.BackgroundTransparency = 0.5 -- Adjust transparency as needed
 frame.Parent = screenGui
+frame.ZIndex = 101
+
+-- Create a variable to track the visibility state of the frame
+local frameVisible = true
+
+-- Create a function to toggle the visibility of the frame
+local function toggleFrameVisibility()
+    frame.Visible = not frameVisible
+    frameVisible = not frameVisible
+end
+
+-- Create a TextButton named "Hide n Open"
+local hideNOpenButton = Instance.new("TextButton")
+hideNOpenButton.Text = "Hide n Open"
+hideNOpenButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+hideNOpenButton.Position = UDim2.new(0.0, 0, 0.9, 0) -- Adjust position here
+hideNOpenButton.Parent = screenGui
+hideNOpenButton.ZIndex = 102
+
+-- Bind the "Hide n Open" button click event to toggle frame visibility
+hideNOpenButton.MouseButton1Click:Connect(function()
+    toggleFrameVisibility()
+end)
+
 
 -- Add a TextLabel on top of the TextBox
 local label = Instance.new("TextLabel")
@@ -16,12 +39,14 @@ label.Text = "Put Player Username/Display Name"
 label.Size = UDim2.new(0.5, 0, 0.1, 0)
 label.Position = UDim2.new(0.25, 0, 0.05, 0) -- Adjust position here
 label.Parent = frame
+label.ZIndex = 102
 
 -- Position a TextBox below the TextLabel
 local textBox = Instance.new("TextBox")
 textBox.Size = UDim2.new(0.5, 0, 0.2, 0)
 textBox.Position = UDim2.new(0.25, 0, 0.2, 0) -- Adjust position here
 textBox.Parent = frame
+textBox.ZIndex = 102
 
 -- Add a TextButton named "Cframe" positioned below the TextBox
 local cframeButton = Instance.new("TextButton")
@@ -29,6 +54,7 @@ cframeButton.Text = "Cframe"
 cframeButton.Size = UDim2.new(0.3, 0, 0.1, 0)
 cframeButton.Position = UDim2.new(0.35, 0, 0.45, 0) -- Adjust position here
 cframeButton.Parent = frame
+cframeButton.ZIndex = 102
 
 -- Add a TextButton named "Tween" positioned below the TextBox
 local tweenButton = Instance.new("TextButton")
@@ -36,6 +62,7 @@ tweenButton.Text = "Tween"
 tweenButton.Size = UDim2.new(0.3, 0, 0.1, 0)
 tweenButton.Position = UDim2.new(0.35, 0, 0.6, 0) -- Adjust position here
 tweenButton.Parent = frame
+tweenButton.ZIndex = 102
 
 -- Add a TextButton named "View" positioned below the "Cframe" and "Tween" buttons
 local viewButton = Instance.new("TextButton")
@@ -43,6 +70,7 @@ viewButton.Text = "View"
 viewButton.Size = UDim2.new(0.3, 0, 0.1, 0)
 viewButton.Position = UDim2.new(0.35, 0, 0.75, 0) -- Adjust position here
 viewButton.Parent = frame
+viewButton.ZIndex = 102
 
 -- Bind the "View" button click event to focus the camera on a player's head
 viewButton.MouseButton1Click:Connect(function()
@@ -76,6 +104,7 @@ unviewButton.Text = "Unview"
 unviewButton.Size = UDim2.new(0.3, 0, 0.1, 0)
 unviewButton.Position = UDim2.new(0.35, 0, 0.9, 0) -- Adjust position here
 unviewButton.Parent = frame
+unviewButton.ZIndex = 102
 
 -- Function to set the camera back to your own player
 local function viewYourPlayer()
@@ -92,6 +121,7 @@ local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Size = UDim2.new(0.2, 0, 0.7, 0) -- Adjust size
 scrollFrame.Position = UDim2.new(0.8, 0, 0.2, 0) -- Move to the right side
 scrollFrame.Parent = frame
+scrollFrame.ZIndex = 102
 
 -- Create a UIListLayout inside the ScrollFrame
 local listLayout = Instance.new("UIListLayout")
@@ -110,6 +140,7 @@ local function refreshPlayerList()
         playerNameButton.Text = player.Name
         playerNameButton.Size = UDim2.new(1, 0, 0, 30) -- Adjust size as needed
         playerNameButton.Parent = scrollFrame
+        playerNameButton.ZIndex = 103
 
         -- Bind the click event to populate the textbox with the player's name
         playerNameButton.MouseButton1Click:Connect(function()
@@ -178,6 +209,7 @@ closeButton.Text = "X"
 closeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
 closeButton.Position = UDim2.new(0.9, 0, 0.05, 0) -- Adjust position here
 closeButton.Parent = frame
+closeButton.ZIndex = 102
 
 -- Define the function to destroy the ScreenGui
 local function destroyScreenGui()
@@ -189,6 +221,6 @@ closeButton.MouseButton1Click:Connect(destroyScreenGui)
 
 -- Periodically refresh the player list (you can adjust the interval as needed)
 while true do
-    wait(5) -- Refresh every 10 seconds
+    wait(2) -- Refresh every 2 seconds
     refreshPlayerList()
 end
